@@ -1,0 +1,88 @@
+R FUNCTIONS :
+
+R inbuilt functions :
+```{r}
+# square root of an  input
+print(sqrt(9))
+
+#truncate value of input 
+a <- c(1.5,5.7,8.9)
+print(trunc(a))
+
+#natural logarithm of input
+print(log10(6))
+
+# Create a sequence of numbers 
+print(seq(10,25)) 
+
+# Find mean of numbers from 25 to 82. 
+print(mean(25:60))
+
+# Find sum of numbers from 1 to 20. 
+print(sum(1:20))
+
+```
+user functions :
+```{r}
+power <- function(a, b) {
+    x <- a^b
+    print(x)
+}
+power(2,5)
+```
+```{r}
+power <- function(a, b) {
+    x <- a^b
+    print(x)
+}
+
+power(b=3, a=2)
+```
+```{r}
+power <- function(a = 3, b = 2) {
+    x <- a^b
+    print(x)
+}
+
+power()
+```
+Lazy Evaluation of Function 
+```{r}
+new <- function(a, b) 
+{ 
+  print(a^2) 
+  print(a) 
+}
+new(2)
+```
+R STRINGS :
+
+Examples :
+```{r}
+str <- "Sairam"
+str 
+str <- 'Sairam'
+str 
+```
+
+Combining Two Strings :
+```{r}
+string1 <- "Sairam"
+string2 <- "Brothers"
+
+paste(string1, string2)
+```
+```{r}
+string1 <- "Sai"
+string2 <- "ram"
+
+print(paste(string1,seq = "-",string2))
+```
+
+```{r}
+string1 <- "Sai"
+string2 <- "ram"
+
+print(paste(string1,collapse = "",string2))
+```
+
