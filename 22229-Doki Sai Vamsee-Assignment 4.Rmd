@@ -1,0 +1,152 @@
+MDSC-201(P)-Assignment-4
+name:Doki Sai Vamsee
+roll.no:22229
+
+R Pie Chart :
+
+```{r}
+fav_sport <- c(15,45,56,50,34)
+
+result <- pie(fav_sport,
+              main = "Favorite sport of students",
+              lables <- c("volleyball","basketball","cricket","football","handball"),
+              col = c("red", "orange", "yellow", "blue", "green")
+              )
+
+print(result)
+```
+
+Barchat :
+
+```{r}
+fav_sport <- c(15,45,56,50,34)
+
+result <- barplot(fav_sport,
+              main = "Favorite sport of students",
+              xlab = "Sport",
+              ylab = "NO.of.Students",
+              names.arg = c("VolleyBall","BasketBall","Cricket","FootBall","HandBall"),
+              col = "blue",
+              density = 10)
+
+print(result)
+```
+
+```{r}
+fav_sport <- c(15,45,56,50,34)
+
+result <- barplot(fav_sport,
+              main = "Favorite sport of students",
+              xlab = "Sport",
+              ylab = "NO.of.Students",
+              names.arg = c("VolleyBall","BasketBall","Cricket","FootBall","HandBall"),
+              col = "blue",
+              density = 10,
+              horiz = TRUE)
+
+print(result)
+```
+
+Box Plot :
+
+```{r}
+head(mtcars)
+```
+
+```{r}
+boxplot(mtcars$mpg,
+        main="Mileage Data ",
+        ylab="Miles Per Gallon(mpg)",
+        xlab="No. of Cylinders",
+        col= "blue",
+        notch = TRUE)
+```
+
+Histogram :
+
+```{r}
+fav_sport <- c(15,45,56,50,34)
+
+result <- hist(fav_sport,
+              main = "Favorite sport of students",
+              xlab = "Sport",
+              col = c("red"),
+              )
+
+print(result)
+```
+
+plot :
+
+```{r}
+x <- c(3, 6, 9, 4) 
+
+y <- c(5, 8, 1, 7)
+
+plot(x, y)
+```
+
+```{r}
+plot(3:9,main = "plotting points",xlab = "x-axis",ylab= "y-axis",type="h")
+```
+
+```{r}
+plot(10:25,main = "plotting points",xlab = "x-axis",ylab= "y-axis",type="s")
+```
+
+```{r}
+x = seq(-10,4,0.1)
+
+y = sin(x)
+
+plot(x,y)
+```
+
+Mean:
+
+```{r}
+marks <- c(97, 78, 57, 64, 87)
+
+result <- mean(marks)
+
+cat("Mean =" ,result)
+```
+
+```{r}
+x <- c(15,71,37,4.2,18.5,2.6,54,-21,8,-5)
+
+result <-  mean(x,trim = 0.5)
+
+print(result)
+```
+
+```{r}
+x <- c(12.6,7.0,38,NA,4.2,18,2,4,-21,8,NA)
+
+result.mean <-  mean(x,na.rm = TRUE)
+print(result.mean)
+```
+
+Median :
+
+```{r}
+marks <- c(97, 78, 57, 64, 87)
+
+result <- median(marks)
+
+cat("Median = " ,result)
+```
+
+Mode :
+
+```{r}
+marks <- c(95, 76, 59, 77, 97, 66, 87, 64, 87, 78)
+
+mode = function() {
+  
+  return(names(sort(-table(marks)))[1])
+}
+
+mode()
+```
+
