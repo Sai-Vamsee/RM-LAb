@@ -1,0 +1,72 @@
+MDSC-201(P)-Assignment-5
+Name:Doki Sai Vamsee
+Roll.no:22229
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+data(iris)
+```
+
+```{r}
+IrisPlot <- ggplot(iris, aes(Sepal.Length, Petal.Length, colour=Species)) + geom_point()
+print(IrisPlot)
+```
+
+```{r}
+print(IrisPlot + labs(y="Petal length (cm)", x = "Sepal length (cm)") + ggtitle("Petal and sepal length of iris")) + theme(legend.position="top")
+```
+
+```{r}
+IrisPlot + theme(legend.title = element_text(colour = "blue", size = 10)) + theme(legend.text = element_text(colour = "red", size = 8))
+```
+
+Scatter Plot :
+```{r}
+ggplot(iris, aes(Sepal.Length, Petal.Length)) +   geom_point()
+```
+```{r}
+ggplot(iris, aes(Sepal.Length, Petal.Length, colour=Species)) + geom_point(shape=1)
+```
+
+Bar Count Plot
+```{r}
+p <- ggplot(mpg, aes(x=factor(cyl)))+geom_bar(stat="count")
+p
+```
+Histogram
+```{r}
+ggplot(data=mpg, aes(x=hwy)) +  geom_histogram( col="red")
+```
+Box Plot:
+
+```{r}
+data(mtcars)
+```
+
+```{r}
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() +labs(x = "Number of Cylinders", y = "Miles per Gallon", title = "Box Plot of MPG by Number of Cylinders")
+
+```
+
+Pie Chart:
+```{r}
+df <- as.data.frame(table(iris$Species))
+df
+```
+
+```{r}
+pie <- ggplot(df, aes(x="",y =Freq, fill = factor(Var1))) + geom_bar(width = 1, stat = "identity") + theme(axis.line = element_blank(),plot.title = element_text(hjust=0.5)) +labs(fill="Freq",x=NULL, y=NULL, title="Pie Chart of Variety of iris Species",caption="Source: iris")
+```
+
+```{r}
+pie + coord_polar(theta = "y", start=0) 
+     
+```
+Bubble Chart:
+```{r}
+ggplot(mpg, aes(x=cty, y=displ, size = 10)) +geom_point(alpha=0.7,color='red')
+```
+
