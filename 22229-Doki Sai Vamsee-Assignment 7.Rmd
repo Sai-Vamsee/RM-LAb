@@ -1,0 +1,80 @@
+MDSC-201(P)-Assignment-7
+roll.no:22229
+
+```{r}
+library(tidyverse)
+```
+```{r}
+as_tibble(iris)
+```
+
+```{r}
+T <- tibble(
+    x = 1.5,
+    y=1,
+    z=x+y
+)
+     
+
+print(T)
+```
+
+```{r}
+help(tibble)
+```
+
+```{r}
+a <- 1:5
+     
+a
+```
+
+```{r}
+tibble(a,a*2) 
+```
+
+```{r}
+tibble(a,b=a*2,c=1)
+```
+
+```{r}
+print(as_tibble(mtcars))
+```
+
+creating a tibble with random values
+```{r}
+tibble(x = runif(10),y=x*2)
+```
+
+dataframe to tibble:
+```{r}
+data <- data.frame(a = 1:3, b = letters[1:3], c = Sys.Date() - 1:3)
+data
+```
+```{r}
+as_tibble(data)
+```
+
+Creating new tibble from column vectors:
+```{r}
+tibble(x= 1:5, y=1, z= x^2+y)
+```
+
+creating a tibble row-by-row using tribble
+```{r}
+tribble(
+    ~x, ~y, ~z,
+    "a",2,3.6,
+    'b',1,8.5
+)
+```
+
+tibble with a list
+```{r}
+ltibble <- tibble(x = 1:3,y = list(1:5, 1:10, 1:20))
+ltibble
+     
+```
+
+
+
