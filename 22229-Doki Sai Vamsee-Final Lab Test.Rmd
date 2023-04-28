@@ -1,0 +1,253 @@
+MDSC-201(P)-FINAL LAB TEST
+ROLL.NO:22229
+
+simple linear regression:
+
+```{r}
+data(Seatbelts)
+head(Seatbelts)
+```
+
+
+```{r}
+
+# Fit a simple linear regression model
+lr_model <- lm( DriversKilled  ~ drivers , data = Seatbelts)
+
+# View the model summary
+summary(lr_model)
+
+```
+```{r}
+library(ggplot2)
+```
+
+```{r}
+
+# Create a scatterplot with the line of best fit
+ggplot(data = seatbelts_df, aes(x = drivers, y = DriversKilled)) +
+  geom_point() +
+  stat_smooth(method = "lm", se = FALSE)
+
+```
+
+
+Multiple Linear Regression: 
+
+```{r}
+data("EuStockMarkets")
+head(EuStockMarkets)
+```
+
+```{r}
+
+# Fit the model with multiple linear regression
+model <- lm(DAX ~ SMI + CAC + FTSE, data = EuStockMarkets_df)
+
+# Print the summary of the model
+summary(model)
+
+```
+```{r}
+# Visualize the data
+ggplot(EuStockMarkets_df, aes(x = SMI, y = DAX)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  xlab("SMI") +
+  ylab("DAX") +
+  ggtitle("EU Stock Markets")
+```
+
+
+Multicolinearity of the data:
+
+```{r}
+
+install.packages("car")
+install.packages("corrplot")
+
+```
+
+
+```{r}
+# Check for multicollinearity
+library(car)
+library(corrplot)
+
+vif_values <- vif(model)
+vif_values
+```
+```{r}
+
+cor_matrix <- cor(EuStockMarkets)
+cor_matrix
+
+```
+```{r}
+
+corrplot(cor_matrix, method = "number")
+
+```
+
+
+Residual Analysis:
+
+```{r}
+plot(model)
+```
+
+
+
+Linear models for classification:
+
+Logistic Regression:
+
+```{r}
+
+library(dplyr)
+library(ggplot2)
+
+```
+
+
+
+```{r}
+
+data(mtcars)
+head(mtcars)
+
+```
+
+
+```{r}
+
+# Converting the cyl variable to a factor
+mtcars$cyl <- as.factor(mtcars$cyl)
+
+# Fit a logistic regression model with vs as the response variable
+log_mod <- glm(vs ~ wt + hp, data = mtcars, family = binomial(link = "logit"))
+summary(log_mod)
+
+```
+```{r}
+# Create a sequence of predictor variable values
+x_seq <- seq(min(mtcars$wt), max(mtcars$wt), length = 100)
+df <- data.frame(wt = x_seq, hp = median(mtcars$hp))
+head(df)
+```
+
+```{r}
+# Predict the probability of vs=1 for each value of wt in the sequence
+y_prob <- predict(log_mod, newdata = df, type = "response")
+df$y_prob <- y_prob
+head(df)
+```
+
+```{r}
+ggplot(data = mtcars, aes(x = wt, y = vs)) +
+  geom_point(aes(color = vs)) +
+  geom_line(data = df, aes(x = x_seq, y = y_prob), color = "blue") +
+  labs(x = "Weight", y = "Probability of V/S") +
+  ggtitle("Logistic Regression Curve")
+```
+
+
+Poission Regression:
+
+```{r}
+install.packages("MASS")
+
+```
+
+```{r}
+library(MASS)
+
+```
+
+```{r}
+data(Insurance)
+head(Insurance)
+```
+
+
+```{r}
+
+# Fit the Poisson regression model
+model_pos <- glm(Claims ~ District + Group, family = poisson, data = Insurance)
+
+summary(model_pos)
+
+
+```
+```{r}
+# Visualize the results
+library(ggplot2)
+ggplot(data = Insurance, aes(x = District, y = Claims)) +
+  geom_point() +
+  stat_smooth(method = "glm", method.args = list(family = poisson), formula = y ~ x, se = FALSE, color = "blue") +
+  facet_wrap(~ Group, ncol = 2) +
+  labs(title = "Poisson Regression Model for Insurance Dataset", x = "District", y = "Number of Claims")
+```
+
+
+
+
+Confusion Matrix:
+
+```{r}
+data(CO2)
+head(CO2)
+```
+
+
+```{r}
+
+# Split the dataset into training and testing sets
+set.seed(123)
+train <- sample(nrow(CO2), 0.7*nrow(CO2))
+train_data <- CO2[train, ]
+test_data <- CO2[-train, ]
+
+# Fit the logistic regression model
+model <- glm(Type ~ ., data = train_data, family = binomial)
+
+# Predict on the testing set
+predicted <- predict(model, newdata = test_data, type = "response")
+predicted <- ifelse(predicted > 0.5, "Quebec", "Mississippi")
+
+# Create the confusion matrix
+table(predicted, test_data$Type)
+
+```
+
+
+ROC curve:
+
+```{r}
+library(pROC)
+```
+
+
+```{r}
+# Load the CO2 dataset
+data(CO2)
+
+# Create a binary outcome variable based on uptake
+CO2$binary_outcome <- ifelse(CO2$uptake > median(CO2$uptake), 1, 0)
+
+# Fit a logistic regression model
+model <- glm(binary_outcome ~ Plant + Type, data = CO2, family = "binomial")
+
+# Predict the probabilities of the outcome
+probabilities <- predict(model, type = "response")
+
+# Calculate the ROC curve and AUC
+roc_data <- roc(CO2$binary_outcome, probabilities)
+
+# Plot the ROC curve
+plot(roc_data, main = "ROC Curve for CO2 Dataset", xlab = "False Positive Rate", ylab = "True Positive Rate")
+
+
+```
+
+
